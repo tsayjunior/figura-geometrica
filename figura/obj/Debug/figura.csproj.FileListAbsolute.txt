@@ -1,11 +1,11 @@
-C:\Users\Junior Javier\source\repos\figura\figura\bin\Debug\figura.exe.config
-C:\Users\Junior Javier\source\repos\figura\figura\bin\Debug\figura.exe
-C:\Users\Junior Javier\source\repos\figura\figura\bin\Debug\figura.pdb
-C:\Users\Junior Javier\source\repos\figura\figura\bin\Debug\OpenTK.dll
-C:\Users\Junior Javier\source\repos\figura\figura\bin\Debug\OpenTK.pdb
-C:\Users\Junior Javier\source\repos\figura\figura\bin\Debug\OpenTK.xml
 C:\Users\Junior Javier\source\repos\figura\figura\obj\Debug\figura.csprojAssemblyReference.cache
 C:\Users\Junior Javier\source\repos\figura\figura\obj\Debug\figura.csproj.CoreCompileInputs.cache
 C:\Users\Junior Javier\source\repos\figura\figura\obj\Debug\figura.csproj.CopyComplete
 C:\Users\Junior Javier\source\repos\figura\figura\obj\Debug\figura.exe
 C:\Users\Junior Javier\source\repos\figura\figura\obj\Debug\figura.pdb
+C:\Users\Junior Javier\source\repos\figura\figura\figura.exe.config
+C:\Users\Junior Javier\source\repos\figura\figura\figura.exe
+C:\Users\Junior Javier\source\repos\figura\figura\figura.pdb
+C:\Users\Junior Javier\source\repos\figura\figura\OpenTK.dll
+C:\Users\Junior Javier\source\repos\figura\figura\OpenTK.pdb
+C:\Users\Junior Javier\source\repos\figura\figura\OpenTK.xml
