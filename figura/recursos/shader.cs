@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics;
+﻿using OpenTK;
+using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace figura.recursos
     class shader
     {
         public int Handle;
+        private bool disposedValue = false;
+        private readonly Dictionary<string, int> _uniformLocations;
         public shader(string vertexPath, string fragmentPath)
         {
             int VertexShader;
@@ -58,6 +61,25 @@ namespace figura.recursos
             GL.DetachShader(Handle, FragmentShader);
             GL.DeleteShader(FragmentShader);
             GL.DeleteShader(VertexShader);
+
+            // First, we have to get the number of active uniforms in the shader.
+            GL.GetProgram(Handle, GetProgramParameterName.ActiveUniforms, out var numberOfUniforms);
+
+            // Next, allocate the dictionary to hold the locations.
+            _uniformLocations = new Dictionary<string, int>();
+
+            // Loop over all the uniforms,
+            for (var i = 0; i < numberOfUniforms; i++)
+            {
+                // get the name of this uniform,
+                var key = GL.GetActiveUniform(Handle, i, out _, out _);
+
+                // get the location,
+                var location = GL.GetUniformLocation(Handle, key);
+
+                // and then add it to the dictionary.
+                _uniformLocations.Add(key, location);
+            }
         }
         public int GetAttribLocation(string attribName)
         {
@@ -69,11 +91,16 @@ namespace figura.recursos
             int locationColorUniform = GL.GetUniformLocation(Handle, "u_color");
             GL.Uniform4(locationColorUniform, color);
         }
+        public void SetMatrix4(string name, Matrix4 data)
+        {
+            GL.UseProgram(Handle);
+            GL.UniformMatrix4(_uniformLocations[name], false, ref data);
+        }
         public void Use()
         {
             GL.UseProgram(Handle);
         }
-        private bool disposedValue = false;
+        
 
         protected virtual void Dispose(bool disposing)
         {
