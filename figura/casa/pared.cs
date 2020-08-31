@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics;
+﻿using OpenTK;
+using OpenTK.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,22 +16,23 @@ namespace figura.casa
             0.4f, -0.4f, 0.0f,
             0.4f, 0.4f, 0.0f,
 
-            0.4f, 0.4f, -0.4f,
-            0.4f, -0.4f, -0.4f,
+            0.4f, 0.4f, -1.2f,
+            0.4f, -0.4f, -1.2f,
 
-            -0.4f, 0.4f, -0.4f,
-            -0.4f, -0.4f, -0.4f,
+            -0.4f, 0.4f, -1.2f,
+            -0.4f, -0.4f, -1.2f,
 
-            -0.4f, 0.1f, 0.0f,
+            -0.4f, 0.1f, 0.0f, //8
             -0.2f, 0.1f, 0.0f,
             0.2f, 0.1f, 0.0f,
             0.4f, 0.1f, 0.0f,
-            -0.2f, -0.4f, 0.0f,
+            -0.2f, -0.4f, 0.0f,  //12
             0.2f, -0.4f, 0.0f
             //-0.9f, -0.4f, 0f
         };
         uint[] indices =
         {
+            //pared lado de la puerta
             0, 3, 11,
             0, 11, 8,
             8, 9, 12,
@@ -49,9 +51,11 @@ namespace figura.casa
 
         };
         Color4 color = new Color4(90, 243, 52, 1);
+        Vector3 centro = new Vector3(0, 0, 0.6f);
         public pared()
         {
             base.init(vertices, indices, color);
+            base.ponerCentro(centro);
         }
     }
 }

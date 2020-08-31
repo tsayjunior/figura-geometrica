@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics;
+﻿using OpenTK;
+using OpenTK.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ namespace figura.casa
         float[] vertices = {
             -0.4f, 0.4f, 0.0f,
             0.4f, 0.4f, 0.0f,
-            0.0f, 0.7f, -0.2f,
-            0.4f, 0.4f, -0.4f,
-            -0.4f, 0.4f, -0.4f
+            0.0f, 0.8f, -0.6f,
+            0.4f, 0.4f, -1.2f,
+            -0.4f, 0.4f, -1.2f
         };
         uint[] indices =
         {
@@ -24,9 +25,12 @@ namespace figura.casa
             2, 4, 0
         };
         Color4 color = new Color4(13, 184, 170, 1);
+        Vector3 centro = new Vector3(0, -0.6f, 0.6f);
         public techo()
         {
             base.init(vertices, indices, color);
+            base.ponerCentro(centro);
         }
+        
     }
 }

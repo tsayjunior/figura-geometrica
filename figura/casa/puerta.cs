@@ -1,4 +1,5 @@
-﻿using OpenTK.Graphics;
+﻿using OpenTK;
+using OpenTK.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,14 @@ namespace figura.casa
             0, 2, 3
         };
         Color4 color = new Color4(8, 43, 215, 1);
+        Vector3 centro = new Vector3(0, 0.15f, 0);
+
+        Vector3 abrirPuerta = new Vector3(0.2f, 0f, 0);
+
         public puerta()
         {
             base.init(vertices, indices, color);
+            base.ponerCentro(centro);
         }
     }
 }

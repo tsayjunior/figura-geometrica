@@ -36,7 +36,9 @@ namespace figura.casa
         bool rotacion;
         bool traslacion;
         bool escalacion;
+        bool casa;
 
+        Vector3 centroDeMasa;
         public controlador()
         {
 
@@ -79,6 +81,12 @@ namespace figura.casa
             rotacion = false;
             traslacion = false;
             escalacion = false;
+            casa = true;
+        }
+        public void ponerCentro(Vector3 centro)
+        {
+            centroDeMasa = centro;
+
         }
         public void setShader()
         {
@@ -134,86 +142,101 @@ namespace figura.casa
             rotacion = false;
             traslacion = false;
         }
+        public void activarCasa()//se activa variable casa para que gire, traslade, escale, etc.
+        {
+            casa = true;
+        }
+        public void desactivarCasa()//se desactiva variable casa para que no gire, traslade, escale, etc.
+        {
+            casa = false;
+        }
         public void trasladarDerechaX()
         {
-            if (traslacion)
+            if (traslacion && casa)
             {
                 translation = translation * Matrix4.CreateTranslation(0.01f, 0.0f, 0.0f);
             }
         }
         public void trasladarIzquierdaX()
         {
-            if (traslacion)
+            if (traslacion && casa)
             {
                 translation = translation * Matrix4.CreateTranslation(-0.01f, 0.0f, 0.0f);
             }
         }
         public void trasladarArribaY()
         {
-            if (traslacion)
+            if (traslacion && casa)
             {
                 translation = translation * Matrix4.CreateTranslation(0.0f, 0.01f, 0.0f);
             }
         }
         public void trasladarAbajoY()
         {
-            if (traslacion)
+            if (traslacion && casa)
             {
                 translation = translation * Matrix4.CreateTranslation(0.0f, -0.01f, 0.0f);
             }
         }
         public void moverEnZpositivo()
         {
-            if (traslacion)
+            if (traslacion && casa)
             {
                 translation = translation * Matrix4.CreateTranslation(0.0f, 0.0f, 0.01f);
             }
         }
         public void moverEnZnegativo()
         {
-            if (traslacion)
+            if (traslacion && casa)
             {
                 translation = translation * Matrix4.CreateTranslation(0.0f, 0.0f, -0.01f);
             }
         }
         public void escalarAgrandar()
         {
-            if (escalacion)
+            if (escalacion && casa)
             {
-                escala = escala - 1;
+                if (escala > 1)
+                {
+                    escala = escala - 1;
+                }
             }
         }
         public void escalarAchicar()
         {
-            if (escalacion)
+            if (escalacion && casa)
             {
-                escala = escala + 1;
+                if (escala < 179)
+                {
+                    escala = escala + 1;
+                }
             }
         }
         public void rotarXarriba()
         {
-            if (rotacion)
+            if (rotacion && casa)
             {
                 model = model * Matrix4.CreateRotationX(MathHelper.DegreesToRadians(1)); //rotacion
             }
         }
         public void rotarXabajo()
         {
-            if (rotacion)
+            if (rotacion && casa)
             {
                 model = model * Matrix4.CreateRotationX(MathHelper.DegreesToRadians(-1)); //rotacion
             }
         }
+        
         public void rotarYderecha()
         {
-            if (rotacion)
+            if (rotacion && casa)
             {
                 model = model * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(1)); //rotacion
             }
         }
         public void rotarYizquierda()
         {
-            if (rotacion)
+            if (rotacion && casa)
             {
                 model = model * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(-1)); //rotacion
             }
@@ -221,17 +244,97 @@ namespace figura.casa
 
         public void rotarZderecha()
         {
-            if (rotacion)
+            if (rotacion && casa)
             {
                 model = model * Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(1)); //rotacion
             }
         }
         public void rotarZizquierda()
         {
-            if (rotacion)
+            if (rotacion && casa)
             {
                 model = model * Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(-1)); //rotacion
             }
+        }
+        public void rotarXarribaParte()
+        {
+            if (rotacion && casa)
+            {
+                model *= Matrix4.CreateTranslation(centroDeMasa);
+                model = model * Matrix4.CreateRotationX(MathHelper.DegreesToRadians(1)); //rotacion
+                model *= Matrix4.CreateTranslation(-centroDeMasa);
+            }
+        }
+        public void rotarXabajoParte()
+        {
+            if (rotacion && casa)
+            {
+                model *= Matrix4.CreateTranslation(centroDeMasa);
+                model = model * Matrix4.CreateRotationX(MathHelper.DegreesToRadians(-1)); //rotacion
+                model *= Matrix4.CreateTranslation(-centroDeMasa);
+            }
+        }
+        public void rotarYderechaParte()
+        {
+            if (rotacion && casa)
+            {
+                model *= Matrix4.CreateTranslation(centroDeMasa);
+                model = model * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(1)); //rotacion
+                model *= Matrix4.CreateTranslation(-centroDeMasa);
+            }
+        }
+        public void rotarYizquierdaParte()
+        {
+            if (rotacion && casa)
+            {
+                model *= Matrix4.CreateTranslation(centroDeMasa);
+                model = model * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(-1)); //rotacion
+                model *= Matrix4.CreateTranslation(-centroDeMasa);
+            }
+        }
+
+        public void rotarZderechaParte()
+        {
+            if (rotacion && casa)
+            {
+                model *= Matrix4.CreateTranslation(centroDeMasa);
+                model = model * Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(1)); //rotacion
+                model *= Matrix4.CreateTranslation(-centroDeMasa);
+            }
+        }
+        public void rotarZizquierdaParte()
+        {
+            if (rotacion && casa)
+            {
+                model *= Matrix4.CreateTranslation(centroDeMasa);
+                model = model * Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(-1)); //rotacion
+                model *= Matrix4.CreateTranslation(-centroDeMasa);
+                
+            }
+        }
+        int i = 0;
+        public void abrirPuerta(string x)
+        {
+            if(x == "cerrar")
+            {
+                if (i<150) {
+                    i++;
+                    model *= Matrix4.CreateTranslation(0.2f, 0f, 0);
+                    model = model * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(1));
+                    model *= Matrix4.CreateTranslation(-0.2f, 0f, 0);
+                }
+            }
+            else if(x == "abrir")
+            {
+                if (i > -150)
+                {
+                    i--;
+                    model *= Matrix4.CreateTranslation(0.2f, 0f, 0);
+                    model = model * Matrix4.CreateRotationY(MathHelper.DegreesToRadians(-1));
+                    model *= Matrix4.CreateTranslation(-0.2f, 0f, 0);
+                }
+            }
+            
         }
         public void setterMatrix4()
         {

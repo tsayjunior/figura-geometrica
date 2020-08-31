@@ -16,9 +16,10 @@ namespace figura
         techo tech;
         pared paredd;
         puerta puert;
+        bool todo;
         public figura(int width, int height, string title) : base(width, height, GraphicsMode.Default, title)
         {
-
+            todo = false;
         }
         protected override void OnLoad(EventArgs e)
         {
@@ -70,6 +71,38 @@ namespace figura
             {
                 return;
             }
+            if (input.IsKeyDown(Key.F1))
+            {
+                // activa variable casa para que todas las figuras hagan transformaciones basicas
+                tech.activarCasa();
+                paredd.activarCasa();
+                puert.activarCasa();
+                todo = true;
+            }
+            if (input.IsKeyDown(Key.F2))
+            {
+                //activa variable casa para que solo techo haga transformaciones basicas
+                tech.activarCasa();
+                paredd.desactivarCasa();
+                puert.desactivarCasa();
+                todo = false;
+            }
+            if (input.IsKeyDown(Key.F3))
+            {
+                //activa variable casa para que solo pared haga transformaciones basicas
+                tech.desactivarCasa();
+                paredd.activarCasa();
+                puert.desactivarCasa();
+                todo = false;
+            }
+            if (input.IsKeyDown(Key.F4))
+            {
+                //activa variable casa para que solo puerta haga transformaciones basicas
+                tech.desactivarCasa();
+                paredd.desactivarCasa();
+                puert.activarCasa();
+                todo = false;
+            }
             if (input.IsKeyDown(Key.R))
             {
                 //presionando R pone en true mi rotacion
@@ -98,10 +131,17 @@ namespace figura
                 paredd.trasladarDerechaX();
                 puert.trasladarDerechaX();
                 //presionando flechaDerecha rota en Y hacia la derecha
-                tech.rotarYderecha();
-                paredd.rotarYderecha();
-                puert.rotarYderecha();
-
+                if (todo)
+                {
+                    tech.rotarYderecha();
+                    paredd.rotarYderecha();
+                    puert.rotarYderecha();
+                }
+                else { 
+                tech.rotarYderechaParte();
+                paredd.rotarYderechaParte();
+                puert.rotarYderechaParte();
+                }
             }
 
             if (input.IsKeyDown(Key.Left))
@@ -111,10 +151,19 @@ namespace figura
                 paredd.trasladarIzquierdaX();
                 puert.trasladarIzquierdaX();
                 //presionando flechaIzquierda rota en Y hacia la izquierda
-                tech.rotarYizquierda();
-                paredd.rotarYizquierda();
-                puert.rotarYizquierda();
-
+                
+                if (todo)
+                {
+                    tech.rotarYizquierda();
+                    paredd.rotarYizquierda();
+                    puert.rotarYizquierda();
+                }
+                else
+                {
+                    tech.rotarYizquierdaParte();
+                    paredd.rotarYizquierdaParte();
+                    puert.rotarYizquierdaParte();
+                }
 
             }
 
@@ -129,9 +178,19 @@ namespace figura
                 paredd.escalarAgrandar();
                 puert.escalarAgrandar();
                 //presionando flechaHaciaArriba rota en X hacia arriba
-                tech.rotarXarriba();
-                paredd.rotarXarriba();
-                puert.rotarXarriba();
+                
+                if (todo)
+                {
+                    tech.rotarXarriba();
+                    paredd.rotarXarriba();
+                    puert.rotarXarriba();
+                }
+                else
+                {
+                    tech.rotarXarribaParte();
+                    paredd.rotarXarribaParte();
+                    puert.rotarXarribaParte();
+                }
             }
 
             if (input.IsKeyDown(Key.Down))
@@ -145,9 +204,19 @@ namespace figura
                 paredd.escalarAchicar();
                 puert.escalarAchicar();
                 //presionando flechaHaciaAbajo rota en X hacia abajo
-                tech.rotarXabajo();
-                paredd.rotarXabajo();
-                puert.rotarXabajo();
+                
+                if (todo)
+                {
+                    tech.rotarXabajo();
+                    paredd.rotarXabajo();
+                    puert.rotarXabajo();
+                }
+                else
+                {
+                    tech.rotarXabajoParte();
+                    paredd.rotarXabajoParte();
+                    puert.rotarXabajoParte();
+                }
 
             }
 
@@ -159,9 +228,19 @@ namespace figura
                 paredd.moverEnZpositivo();
                 puert.moverEnZpositivo();
                 //presionando numero 9 rota en Z positivo
-                tech.rotarZderecha();
-                paredd.rotarZderecha();
-                puert.rotarZderecha();
+                
+                if (todo)
+                {
+                    tech.rotarZderecha();
+                    paredd.rotarZderecha();
+                    puert.rotarZderecha();
+                }
+                else
+                {
+                    tech.rotarZderechaParte();
+                    paredd.rotarZderechaParte();
+                    puert.rotarZderechaParte();
+                }
             }
 
             if (input.IsKeyDown(Key.Keypad1))
@@ -171,9 +250,28 @@ namespace figura
                 paredd.moverEnZnegativo();
                 puert.moverEnZnegativo();
                 //presionando numero 1 rota en z negativo
-                tech.rotarZizquierda();
-                paredd.rotarZizquierda();
-                puert.rotarZizquierda();
+                
+                if (todo)
+                {
+                    tech.rotarZizquierda();
+                    paredd.rotarZizquierda();
+                    puert.rotarZizquierda();
+                }
+                else
+                {
+                    tech.rotarZizquierdaParte();
+                    paredd.rotarZizquierdaParte();
+                    puert.rotarZizquierdaParte();
+                    
+                }
+            }
+            if (input.IsKeyDown(Key.A))
+            {
+                puert.abrirPuerta("abrir");
+            }
+            if (input.IsKeyDown(Key.C))
+            {
+                puert.abrirPuerta("cerrar");
             }
             base.OnUpdateFrame(e);
         }
